@@ -1,127 +1,129 @@
 <template>
-  <div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Sign in to your account
-      </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
-        Or
-        <router-link to="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
-          create a new account
-        </router-link>
-      </p>
-    </div>
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-sm">
+      <h1 class="text-2xl font-semibold text-center mb-6">Welcome to us</h1>
+      <form @submit.prevent="handleSubmit" class="space-y-4">
+        <input
+            v-model="username"
+            type="text"
+            placeholder="Username"
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+            v-model="password"
+            type="password"
+            placeholder="Password"
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+            type="submit"
+            class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+        >
+          Login
+        </button>
+      </form>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form class="space-y-6" @submit.prevent="handleSubmit">
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">
-              Email address
-            </label>
-            <div class="mt-1">
-              <input id="email" name="email" type="email" required
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                v-model="email" />
-            </div>
-          </div>
+      <div class="mt-6 flex flex-col gap-4">
+        <!-- Google Login -->
+        <button
+            @click="handleGoogle"
+            class="flex items-center justify-center gap-2 w-full py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded-md hover:bg-gray-200 transition"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M21.35 11.1H12v2.9h5.4c-.3 1.45-1.15 2.55-2.45 3.3v2.75h3.95c2.3-2.1 3.6-5.2 3.6-8.95 0-.65-.05-1.3-.15-1.9z"
+                fill="#4285F4"
+            />
+            <path
+                d="M12 22c2.7 0 4.95-.9 6.6-2.45l-3.95-2.75c-1.1.75-2.5 1.15-4.05 1.15-3.1 0-5.75-2.1-6.7-4.95H.85v3.1C2.5 19.95 6.85 22 12 22z"
+                fill="#34A853"
+            />
+            <path
+                d="M5.3 13c-.25-.75-.4-1.55-.4-2.4s.15-1.65.4-2.4V5.1H.85C.3 6.25 0 7.6 0 9s.3 2.75.85 3.9L5.3 13z"
+                fill="#FBBC05"
+            />
+            <path
+                d="M12 4.8c1.45 0 2.75.5 3.8 1.5l2.85-2.85C16.95 1.5 14.7.5 12 .5 6.85.5 2.5 2.55.85 5.1L5.3 7.2C6.25 5.25 8.9 3.3 12 4.8z"
+                fill="#EA4335"
+            />
+          </svg>
+          Continue with Google
+        </button>
 
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <div class="mt-1">
-              <input id="password" name="password" type="password" required
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                v-model="password" />
-            </div>
-          </div>
+        <!-- Facebook Login -->
+        <button
+            @click="handleFacebook"
+            class="flex items-center justify-center gap-2 w-full py-2 bg-blue-600 text-white border border-gray-300 rounded-md hover:bg-blue-700 transition"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M12 2.04c5.52 0 10 4.48 10 10 0 5.14-3.84 9.48-8.86 9.95v-7.06h2.74l.41-3.23h-3.14v-2.06c0-.94.26-1.58 1.57-1.58h1.68V6.9h-2.9c-3.57 0-5.24 1.93-5.24 5.21v3.09h-3.47v3.23h3.47v7.06C3.84 21.48 0 17.14 0 12.04 0 6.48 4.48 2.04 12 2.04z"
+            />
+          </svg>
+          Continue with Facebook
+        </button>
 
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <input id="remember-me" name="remember-me" type="checkbox"
-                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
-              <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
-            </div>
+        <div class="border-t border-gray-300"></div>
 
-            <div class="text-sm">
-              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <button type="submit"
-              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Sign in
-            </button>
-          </div>
-        </form>
-
-        <div class="mt-6">
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white text-gray-500">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <div class="mt-6 grid grid-cols-2 gap-3">
-            <div>
-              <button @click="handleGoogleLogin"
-                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M12.545,12.151L12.545,12.151c0,1.054,0.855,1.909,1.909,1.909h3.536c-0.447,1.722-1.498,3.478-3.092,4.616c-2.395,1.772-5.703,1.772-8.098,0C4.173,16.88,3.06,13.542,3.06,12.151c0-1.169,0.307-2.291,0.868-3.284c0.526-0.933,1.263-1.738,2.127-2.334c1.716-1.181,3.736-1.181,5.452,0c0.864,0.596,1.601,1.401,2.127,2.334c0.561,0.993,0.868,2.115,0.868,3.284" />
-                  <path
-                    d="M12,2C6.477,2,2,6.477,2,12c0,5.523,4.477,10,10,10s10-4.477,10-10C22,6.477,17.523,2,12,2 M12,20c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S16.418,20,12,20" />
-                </svg>
-                Google
-              </button>
-            </div>
-
-            <div>
-              <button @click="handleFacebookLogin"
-                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-                Facebook
-              </button>
-            </div>
-          </div>
-        </div>
+        <button
+            @click="goToRegister"
+            class="w-full py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+        >
+          Create an account
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { getToken } from "@/services/localStorageService";
+import { OAuthConfig } from "@/configurations/configuration";
 
-const email = ref('')
-const password = ref('')
+const router = useRouter();
+const username = ref("");
+const password = ref("");
 
 const handleSubmit = () => {
-  // Handle form submission
-  console.log('Form submitted:', { email: email.value, password: password.value })
-}
+  console.log("Username:", username.value);
+  console.log("Password:", password.value);
+};
 
-const handleGoogleLogin = () => {
-  // Handle Google login
-  console.log('Google login clicked')
-}
+const handleGoogle = () => {
+  const callbackUrl = OAuthConfig.redirectUri;
+  const authUrl = OAuthConfig.authUri;
+  const googleClientId = OAuthConfig.clientId;
 
-const handleFacebookLogin = () => {
-  // Handle Facebook login
-  console.log('Facebook login clicked')
-}
-</script> 
+  const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
+      callbackUrl
+  )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
+
+  console.log(targetUrl);
+  window.location.href = targetUrl;
+};
+
+const handleFacebook = () => {
+  const facebookAppId = OAuthConfig.facebookAppId;
+  const callbackUrl = OAuthConfig.redirectUri;
+
+  const targetUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${facebookAppId}&redirect_uri=${encodeURIComponent(
+      callbackUrl
+  )}&response_type=code&scope=email,public_profile`;
+
+  console.log(targetUrl);
+  window.location.href = targetUrl;
+};
+
+const goToRegister = () => {
+  router.push("/register"); // Navigate to the register page
+};
+
+onMounted(() => {
+  const token = getToken();
+  if (token) {
+    router.push("/"); // Redirect to home if already logged in
+  }
+});
+</script>

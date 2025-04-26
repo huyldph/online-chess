@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col items-center justify-center gap-8 h-screen">
-    <v-progress-circular indeterminate color="primary" />
-    <p>Authenticating...</p>
+    <!-- Spinner Tailwind -->
+    <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+
+    <p class="text-lg font-semibold text-gray-700">Authenticating...</p>
   </div>
 </template>
 
@@ -46,5 +48,5 @@ watch(isLoggedin, (newValue) => {
 </script>
 
 <style scoped>
-/* You can add custom styles here if needed */
+/* Nếu muốn thêm hiệu ứng riêng thì viết ở đây */
 </style>
