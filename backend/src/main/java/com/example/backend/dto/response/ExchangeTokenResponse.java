@@ -1,21 +1,25 @@
 package com.example.backend.dto.response;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ExchangeTokenResponse {
+    @JsonProperty("access_token")
     String accessToken;
-    Long expiresIn;
-    String refreshToken;
-    String scope;
+
+    @JsonProperty("expires_in")
+    Integer expiresIn;
+
+    @JsonProperty("token_type")
     String tokenType;
+
+    @JsonProperty("id_token")
+    String idToken;
 }
