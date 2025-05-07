@@ -77,18 +77,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import { getToken } from "@/services/localStorageService";
-import { OAuthConfig } from "@/configurations/configuration";
+import {ref, onMounted} from "vue";
+import {useRouter} from "vue-router";
+import {getToken, setToken} from "@/services/localStorageService";
+import {OAuthConfig} from "@/configurations/configuration";
+import axios from "axios";
 
 const router = useRouter();
 const username = ref("");
 const password = ref("");
 
-const handleSubmit = () => {
-  console.log("Username:", username.value);
-  console.log("Password:", password.value);
+const handleSubmit = async () => {
+  try {
+    const response = await axios.post("http://localhost:8080/identity/auth/token", {
+      username: username.value,
+      password: password.value,
+    });
+
+    const token = response.data.result.token;
+    setToken(token);
+    await router.push("/"); // Redirect to home
+  } catch (error) {
+    console.error("Error logging in:", error);
+  }
 };
 
 const handleGoogle = () => {
@@ -99,18 +110,6 @@ const handleGoogle = () => {
   const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
       callbackUrl
   )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
-
-  console.log(targetUrl);
-  window.location.href = targetUrl;
-};
-
-const handleFacebook = () => {
-  const facebookAppId = OAuthConfig.facebookAppId;
-  const callbackUrl = OAuthConfig.redirectUri;
-
-  const targetUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${facebookAppId}&redirect_uri=${encodeURIComponent(
-      callbackUrl
-  )}&response_type=code&scope=email,public_profile`;
 
   console.log(targetUrl);
   window.location.href = targetUrl;
