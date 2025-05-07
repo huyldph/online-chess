@@ -42,23 +42,23 @@ const userDetails = ref(null)
 // Tính toán tên hiển thị từ dữ liệu có sẵn
 const displayName = computed(() => {
   if (!userDetails.value) return ''
-  
+
   if (userDetails.value.fullName) {
     return userDetails.value.fullName
   }
-  
+
   if (userDetails.value.firstName && userDetails.value.lastName) {
     return `${userDetails.value.firstName} ${userDetails.value.lastName}`
   }
-  
+
   if (userDetails.value.firstName) {
     return userDetails.value.firstName
   }
-  
+
   if (userDetails.value.lastName) {
     return userDetails.value.lastName
   }
-  
+
   // Trường hợp không có tên, hiển thị username
   return userDetails.value.username
 })
@@ -71,11 +71,11 @@ const getUserDetails = async (token) => {
         'Authorization': `Bearer ${token}`
       }
     })
-    
+
     if (!response.ok) {
       throw new Error('Failed to fetch user details')
     }
-    
+
     const data = await response.json()
     userDetails.value = data.result
     console.log('User details:', data.result)
