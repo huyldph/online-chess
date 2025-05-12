@@ -3,3 +3,8 @@ export const OAuthConfig = {
     redirectUri: "http://localhost:5173/authenticate",
     authUri: "https://accounts.google.com/o/oauth2/auth",
 };
+
+export const API = {
+    LOGIN: "/identity/auth/token",
+    MY_INFO: "/identity/users/my-info",
+};

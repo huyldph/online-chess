@@ -149,7 +149,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import Header from './header/Header.vue'
-import { getToken } from '../services/localStorageService'
+import { getToken } from '../services/tokenService'
 
 const router = useRouter()
 const userDetails = ref(null)

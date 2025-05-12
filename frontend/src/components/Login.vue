@@ -64,9 +64,9 @@
 <script setup>
 import {ref, onMounted} from "vue";
 import {useRouter} from "vue-router";
-import {getToken, setToken} from "@/services/localStorageService";
+import {logIn, isAuthenticated} from "@/services/authenticationService";
 import {OAuthConfig} from "@/configurations/configuration";
-import axios from "axios";
+import axiosInstance from "@/services/axiosConfig";
 
 const router = useRouter();
 const username = ref("");
@@ -74,13 +74,7 @@ const password = ref("");
 
 const handleSubmit = async () => {
   try {
-    const response = await axios.post("http://localhost:8080/identity/auth/token", {
-      username: username.value,
-      password: password.value,
-    });
-
-    const token = response.data.result.token;
-    setToken(token);
+    await logIn(username.value, password.value);
     await router.push("/"); // Redirect to home
   } catch (error) {
     console.error("Error logging in:", error);
@@ -101,13 +95,12 @@ const handleGoogle = () => {
 };
 
 const goToRegister = () => {
-  router.push("/register"); // Navigate to the register page
+  router.push("/register");
 };
 
 onMounted(() => {
-  const token = getToken();
-  if (token) {
-    router.push("/"); // Redirect to home if already logged in
+  if (isAuthenticated()) {
+    router.push("/");
   }
 });
 </script>
