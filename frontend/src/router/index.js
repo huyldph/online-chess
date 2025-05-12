@@ -5,7 +5,7 @@ import Home from "../components/Home.vue";
 import Authenticate from "../components/Authenticate.vue";
 import Profile from "../components/Profile.vue";
 import Rankings from "../components/Rankings.vue";
-import {getToken} from '../services/localStorageService';
+import { authGuard } from './guards';
 
 const routes = [
     {
@@ -55,16 +55,6 @@ const router = createRouter({
 })
 
 // Navigation guard
-router.beforeEach((to, from, next) => {
-    const token = getToken();
-
-    if (to.meta.requiresAuth && !token) {
-        next('/login');
-    } else if (token && to.path === '/login') {
-        next('/');
-    } else {
-        next();
-    }
-});
+router.beforeEach(authGuard);
 
 export default router 
