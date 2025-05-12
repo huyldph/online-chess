@@ -10,30 +10,28 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { setToken } from '../services/localStorageService';
+import { authenticateWithOAuth } from '@/services/authenticationService';
 
 const router = useRouter();
 const isLoggedin = ref(false);
 
-onMounted(() => {
+onMounted(async () => {
   const authCodeRegex = /code=([^&]+)/;
   const isMatch = window.location.href.match(authCodeRegex);
 
   if (isMatch) {
     const authCode = isMatch[1];
 
-    fetch(`http://localhost:8080/identity/auth/outbound/authentication?code=${authCode}`, {
-      method: 'POST',
-    })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setToken(data.result?.token);
-          isLoggedin.value = true;
-        })
-        .catch((error) => {
-          console.error('Error authenticating:', error);
-        });
+    try {
+      await authenticateWithOAuth(authCode);
+      isLoggedin.value = true;
+    } catch (error) {
+      console.error('Error authenticating:', error);
+      isLoggedin.value = false;
+    }
+  } else {
+    console.error('No authentication code found in URL');
+    isLoggedin.value = false;
   }
 });
 
