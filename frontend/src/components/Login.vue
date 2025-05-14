@@ -36,18 +36,6 @@
           Continue with Google
         </button>
 
-        <!-- Facebook Login -->
-        <button
-            @click="handleFacebook"
-            class="flex items-center justify-center gap-2 w-full py-2 bg-yellow-500 text-black border border-yellow-600 rounded-md hover:bg-yellow-400 transition"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <!-- icon path giữ nguyên -->
-            <path d="..." />
-          </svg>
-          Continue with Facebook
-        </button>
-
         <div class="border-t border-yellow-500"></div>
 
         <button
@@ -66,7 +54,6 @@ import {ref, onMounted} from "vue";
 import {useRouter} from "vue-router";
 import {logIn, isAuthenticated} from "@/services/authenticationService";
 import {OAuthConfig} from "@/configurations/configuration";
-import axiosInstance from "@/services/axiosConfig";
 
 const router = useRouter();
 const username = ref("");
