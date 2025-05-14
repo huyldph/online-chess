@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="online_chess@localhost" uuid="c85ae80f-2e30-4d60-8081-cdb09f09b6cb">
+    <data-source source="LOCAL" name="online_chess@localhost" uuid="884f79e4-c83f-4dd5-830d-b2231aedaada">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>

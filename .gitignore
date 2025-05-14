@@ -1,0 +1,16 @@
+# Ignore environment config
+.env
+
+# Java / Spring Boot
+backend/target/
+*.class
+
+# Node.js / Frontend
+frontend/node_modules/
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
